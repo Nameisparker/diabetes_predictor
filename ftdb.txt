@@ -1,0 +1,138 @@
+class FoodDeliverySystem:
+    def __init__(self):
+        self.users = {}  # Store user credentials
+
+    def register_user(self, email, password):
+        if email not in self.users:
+            self.users[email] = password
+            print(f"User {email} registered successfully.")
+        else:
+            print(f"User {email} already exists.")
+
+    def login(self, email, password):
+        if email in self.users and self.users[email] == password:
+            print(f"Welcome, {email}!")
+            return True
+        else:
+            print("Invalid email or password. Please try again.")
+            return False
+
+
+def main():
+    food_delivery_system = FoodDeliverySystem()
+
+    # Example user registration
+    food_delivery_system.register_user("user1@example.com", "password123")
+    food_delivery_system.register_user("user2@example.com", "password456")
+
+    while True:
+        print("\nWelcome to Food Delivery System")
+        print("1. Login")
+        print("2. Register")
+        print("3. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            email = input("Enter your email: ")
+            password = input("Enter your password: ")
+            if food_delivery_system.login(email, password):
+                # Redirect to main menu or other functionalities
+                print("Redirecting to main menu...")
+                break
+        elif choice == "2":
+            email = input("Enter your email: ")
+            password = input("Enter your password: ")
+            food_delivery_system.register_user(email, password)
+        elif choice == "3":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+class Customer:
+    def __init__(self, id, name, address, phone, email):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.phone = phone
+        self.email = email
+
+    def register(self):
+        print(f"Customer:{self.name} registered successfully.")
+
+    def place_order(self, restaurant, items):
+        print(f"Order placed by : {self.name} for {items} from {restaurant.name}.")
+
+    def rate_and_feedback(self, order_id, rating, feedback):
+        print(f"Customer :{self.name} rated order {order_id} with {rating} stars and gave feedback: {feedback}.")
+
+    def view_offers(self):
+        print("Viewing offers...")
+
+class Restaurant:
+    def __init__(self, id, name, address, phone, email):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.phone = phone
+        self.email = email
+        self.menu = {}
+
+    def register(self):
+        print(f"Restaurant : {self.name} registered successfully.")
+
+    def manage_menu(self, menu):
+        self.menu = menu
+        print(f"Menu : {self.name} updated successfully.")
+
+    def confirm_order(self, order_id):
+        print(f"Order Id : {order_id} confirmed by {self.name}.")
+
+    def rate_and_feedback(self, order_id, rating, feedback):
+        print(f"Restaurant : {self.name} received rating {rating} stars and feedback: {feedback} for order {order_id}.")
+
+class DeliveryBoy:
+    def __init__(self, id, name, address, phone, email):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.phone = phone
+        self.email = email
+
+    def register(self):
+        print(f"Delivery boy {self.name} registered successfully.")
+
+    def accept_order(self, order_id):
+        print(f"Delivery boy : {self.name} accepted order : {order_id}.")
+
+    def close_order(self, order_id):
+        print(f"Order {order_id} delivered by : {self.name}.")
+
+    def rate_and_feedback(self, order_id, rating, feedback):
+        print(f"Delivery boy : {self.name} received rating : {rating} stars and feedback : {feedback} for order {order_id}.")
+
+customer1 = Customer(1, "shri", "123 Main St", "555-1234", "shri@gmail.com")
+restaurant1 = Restaurant(1, "anapoorna", "sitra", "555-5678", "anapoorna@gmail.com")
+delivery_boy1 = DeliveryBoy(1, "arul", "c", "555-9090", "jack@gmail.com")
+
+customer1.register()
+restaurant1.register()
+delivery_boy1.register()
+
+restaurant1.manage_menu({"dosa": 40, "idly": 8, "vada": 5})
+
+customer1.place_order(restaurant1, ["dosa", "vada"])
+
+restaurant1.confirm_order(123)
+
+customer1.rate_and_feedback(123, 5, "Great food and service!")
+
+delivery_boy1.accept_order(123)
+
+delivery_boy1.close_order(123)

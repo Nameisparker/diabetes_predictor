@@ -1,0 +1,54 @@
+class UserAuthentication:
+    def __init__(self):
+        self.users = {"user1@gmail.com": "password1", "user2@gmail.com": "password2"}
+
+    def login(self):
+        while True:
+            user_id = input("Enter your email: ")
+            password = input("Enter your password: ")
+            if user_id in self.users and self.users[user_id] == password:
+                print(f"User {user_id} logged in successfully.")
+                return user_id
+            else:
+                print("Invalid credentials. Please try again.")
+
+class Restaurant:
+    def __init__(self, name, menu):
+        self.name = name
+        self.menu = menu
+
+    def display_menu(self):
+        print(f"Menu for {self.name}:")
+        for item, price in self.menu.items():
+            print(f"{item}: ${price}")
+
+class FoodDeliverySystem:
+    def __init__(self):
+        self.restaurants = {"Anapoorna": {"Dosa": 40, "Idly": 8, "Vada": 5, "poori": 20},
+                            "Pizza Palace": {"Pizza": 100, "Burger": 80, "Fries": 95, "Sandwich": 60},
+                            "Thalapakatti": {"Briyani": 300, "Soup": 180, "Grill": 500}}
+        self.delivery_boys = ["Arul", "vijay", "dhanush"]
+
+    def select_restaurant(self):
+        print("Available restaurants:")
+        for restaurant in self.restaurants:
+            print(restaurant)
+        return input("Enter the name of the restaurant you'd like to order from: ")
+
+    def place_order(self, restaurant_name, user_id):
+        selected_restaurant = Restaurant(restaurant_name, self.restaurants[restaurant_name])
+        selected_restaurant.display_menu()
+        food_items = input("Enter the food items you'd like to order, separated by commas: ").split(',')
+        delivery_details = input("Enter your delivery address: ")
+        payment_method = input("Choose payment method (UPI/Cash): ").lower()
+        delivery_boy = self.delivery_boys.pop(0)
+        print(f"Order placed successfully from {restaurant_name} for {food_items}. "
+              f"Delivery to {delivery_details}. Payment method: {payment_method}. "
+              f"Assigned delivery boy: {delivery_boy}.")
+
+authentication = UserAuthentication()
+user_id = authentication.login()
+
+food_delivery_system = FoodDeliverySystem()
+restaurant_name = food_delivery_system.select_restaurant()
+food_delivery_system.place_order(restaurant_name, user_id)
